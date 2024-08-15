@@ -1,4 +1,4 @@
-import { parse } from '@astrojs/compiler/sync';
+import { parse } from '@astrojs/compiler';
 import type { Parser, Printer, SupportLanguage } from 'prettier';
 import * as prettierPluginBabel from 'prettier/plugins/babel';
 import { options } from './options';
@@ -20,7 +20,7 @@ export const languages: Partial<SupportLanguage>[] = [
 // https://prettier.io/docs/en/plugins.html#parsers
 export const parsers: Record<string, Parser> = {
 	astro: {
-		parse: (source) => parse(source, { position: true }).ast,
+		parse: (source) => parse(source, { position: true }).then((res) => res.ast),
 		astFormat: 'astro',
 		locStart: (node) => node.position.start.offset,
 		locEnd: (node) => node.position.end.offset,

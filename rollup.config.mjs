@@ -12,8 +12,6 @@ export default defineConfig({
 		'@astrojs/compiler/utils',
 		'@astrojs/compiler/sync',
 		'sass-formatter',
-		'node:module',
-		'node:buffer',
 	],
 	output: {
 		dir: 'dist',

@@ -1,4 +1,3 @@
-import { Buffer } from 'node:buffer';
 import type { BuiltInParserName, Doc, Options } from 'prettier';
 import _doc from 'prettier/doc';
 import { SassFormatter, type SassFormatterConfig } from 'sass-formatter';
@@ -370,9 +369,10 @@ async function embedStyle(
 			const node = path.getNode();
 
 			if (node) {
-				return Buffer.from(options.originalText)
-					.subarray(options.locStart(node), options.locEnd(node))
-					.toString();
+				const encoded = new TextEncoder()
+					.encode(options.originalText)
+					.subarray(options.locStart(node), options.locEnd(node));
+				return new TextDecoder().decode(encoded);
 			}
 
 			return undefined;
