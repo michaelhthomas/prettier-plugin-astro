@@ -1,0 +1,48 @@
+import { type AstPath as AstP, type BuiltInParserName, type Doc, type ParserOptions as ParserOpts } from 'prettier';
+import type { CommentNode, ExpressionNode, Node, ParentLikeNode, TagLikeNode, TextNode, anyNode } from './nodes';
+export type printFn = (path: AstPath) => Doc;
+export type ParserOptions = ParserOpts<anyNode>;
+export type AstPath = AstP<anyNode>;
+export declare const openingBracketReplace = "_P\u00E9";
+export declare const closingBracketReplace = "\u00E8P_";
+export declare const atSignReplace = "\u03A9P_";
+export declare const dotReplace = "\u03C9P_";
+export declare const interrogationReplace = "\u0394P_";
+export declare function isInlineElement(path: AstPath, opts: ParserOptions, node: anyNode): boolean;
+export declare function isBlockElement(node: anyNode, opts: ParserOptions): boolean;
+export declare function isIgnoreDirective(node: Node): boolean;
+export declare function printRaw(node: anyNode, stripLeadingAndTrailingNewline?: boolean): string;
+export declare function isNodeWithChildren(node: anyNode): node is anyNode & ParentLikeNode;
+export declare const isEmptyTextNode: (node: anyNode) => boolean;
+export declare function getUnencodedText(node: TextNode | CommentNode): string;
+export declare function isTextNodeStartingWithLinebreak(node: TextNode, nrLines?: number): node is TextNode;
+export declare function startsWithLinebreak(text: string, nrLines?: number): boolean;
+export declare function endsWithLinebreak(text: string, nrLines?: number): boolean;
+export declare function isTextNodeStartingWithWhitespace(node: Node): node is TextNode;
+export declare function isTextNodeEndingWithWhitespace(node: Node): node is TextNode;
+export declare function hasSetDirectives(node: TagLikeNode): boolean;
+export declare function shouldHugStart(node: anyNode, opts: ParserOptions): boolean;
+export declare function shouldHugEnd(node: anyNode, opts: ParserOptions): boolean;
+export declare function canOmitSoftlineBeforeClosingTag(path: AstPath, opts: ParserOptions): boolean;
+export declare function trimTextNodeLeft(node: TextNode): void;
+export declare function trimTextNodeRight(node: TextNode): void;
+export declare function printClassNames(value: string): string;
+export declare function manualDedent(input: string): {
+    tabSize: number;
+    char: string;
+    result: string;
+};
+export declare function isTextNode(node: anyNode): node is TextNode;
+export declare function isExpressionNode(node: anyNode): node is ExpressionNode;
+export declare function isTagLikeNode(node: anyNode): node is TagLikeNode;
+export declare function getSiblings(path: AstPath): anyNode[];
+export declare function getNextNode(path: AstPath): anyNode | null;
+export declare const isPreTagContent: (path: AstPath) => boolean;
+interface QuoteResult {
+    quote: '"' | "'";
+    regex: RegExp;
+    escaped: string;
+}
+export declare function getPreferredQuote(rawContent: string, preferredQuote: string): QuoteResult;
+export declare function inferParserByTypeAttribute(type: string): BuiltInParserName;
+export {};

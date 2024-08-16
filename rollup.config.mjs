@@ -4,7 +4,14 @@ import { defineConfig } from 'rollup';
 
 export default defineConfig({
 	input: 'src/index.ts',
-	plugins: [commonjs(), typescript()],
+	plugins: [
+		commonjs(),
+		typescript({
+			declaration: true,
+			declarationDir: 'dist/',
+			rootDir: 'src',
+		}),
+	],
 	external: [
 		'prettier',
 		'prettier/doc',
